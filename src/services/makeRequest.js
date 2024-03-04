@@ -5,10 +5,11 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export function makeRequest(url, options) {
-  return api(url, options)
-    .then((res) => res.data)
-    .catch((error) =>
-      Promise.reject(error?.response?.data?.message ?? "Error")
-    );
+export async function makeRequest(url, options) {
+  try {
+    const res = await api(url, options);
+    return res.data;
+  } catch (error) {
+    return await Promise.reject(error?.response?.data?.message ?? "Error");
+  }
 }
