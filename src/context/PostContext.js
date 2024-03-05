@@ -19,6 +19,7 @@ export function PostProvider({ children }) {
       group[comment.parentId] ||= [];
       group[comment.parentId].push(comment);
     });
+
     return group;
   }, [post?.comments]);
 
