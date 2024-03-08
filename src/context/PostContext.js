@@ -51,6 +51,38 @@ export function PostProvider({ children }) {
     });
   }
 
+  function deleteLocalComment(id) {
+    setComments((prevComments) => {
+      return prevComments.filter((comment) => {
+        return comment.id !== id;
+      });
+    });
+  }
+
+  function toggleLocalCommentLike(id, addLike) {
+    setComments((prevComments) => {
+      return prevComments.map((comment) => {
+        if (comment.id === id) {
+          if (addLike) {
+            return {
+              ...comment,
+              likeCount: comment.likeCount + 1,
+              likedByMe: true,
+            };
+          } else {
+            return {
+              ...comment,
+              likeCount: comment.likeCount - 1,
+              likedByMe: false,
+            };
+          }
+        } else {
+          return comment;
+        }
+      });
+    });
+  }
+
   return (
     <Context.Provider
       value={{
@@ -59,6 +91,8 @@ export function PostProvider({ children }) {
         getReplies,
         createLocalComment,
         updateLocalComment,
+        deleteLocalComment,
+        toggleLocalCommentLike,
       }}
     >
       {loading ? (

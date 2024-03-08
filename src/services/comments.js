@@ -13,3 +13,15 @@ export function updateComment({ postId, message, commentId }) {
     data: { message },
   });
 }
+
+export function deleteComment({ postId, commentId }) {
+  return makeRequest(`posts/${postId}/comments/${commentId}`, {
+    method: "DELETE",
+  });
+}
+
+export function toggleCommentLike({ postId, commentId }) {
+  return makeRequest(`posts/${postId}/comments/${commentId}/toggleLike`, {
+    method: "POST",
+  });
+}
